@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+        
+        .nb {
+            display: none;
+            padding: 5px;
+            background-color: #C2F9FF;
+            border: 1px solid #000;
+        }
+        
+        .p {
+            margin-top: 240px;
+        }
+    </style>
+    <script>
+    $(function(){
+        $('#main-menu a').click(function(event) {
+            // Prevents the default behavior which is
+            // to load the page synchronously
+            event.preventDefault();
+
+            $('#main').load(this.href + ' #sharemenu *', function(data, status) {
+                $bar = $('#notification-bar');
+
+                if (status === 'success') {
+                    $bar.text('The page has been successfully loaded.');
+                    $("#main").html(data);
+                }
+                else {
+                    $bar.text('An error occurred.');
+                }
+
+                $bar
+                    .slideDown('normal')
+                    .delay(2000)
+                    .slideUp('fast');
+            });
+        });    
+    })
+        
+    </script>
+
+</head>
+
+<body>
+    <ul id="main-menu">
+        <li><a href="../content.html">Load Data (click me)</a>
+        </li>
+    </ul>
+    <div id="notification-bar" class="nb"></div>
+    <div id="main"></div>
+
+    </body>
+
+</html>

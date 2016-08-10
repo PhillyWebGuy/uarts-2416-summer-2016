@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            padding: 30px;
+        }
+        
+        .p {
+            margin-top: 240px;
+        }
+    </style>
+    <script>
+        $(function() {
+            // Needed to simulate a JSON response
+            var fakeResponse = {
+                status: "error",
+                message: "Username already in use"
+            };
+
+            $('input').blur(function() {
+                var data = {};
+                data[this.name] = this.value;
+
+                if (this.value) {
+                    $.get(
+                        '../content.html',
+                        data,
+                        function(responseText) {
+                            if (fakeResponse.status === 'error') {
+                                $('#notification-bar')
+                                    .html('<p>' + fakeResponse.message + '<p>')
+                            }
+                        });
+                }
+            });
+
+            $('input').focus(function() {
+                $('#notification-bar').html('');
+            });
+        })
+    </script>
+
+</head>
+
+<body>
+    
+    <label>Username: <input name="username" /></label>
+    <div id="notification-bar"></div>
+
+   
+</body>
+
+</html>
